@@ -8,6 +8,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.trackable
       t.lockable
 
+      t.string :username, :limit => 20, :null => false
       t.timestamps
     end
 
