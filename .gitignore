@@ -1,0 +1,6 @@
+log/*
+*~
+#*#
+backup*.db
+db/*.sqlite3
+db/*.db
