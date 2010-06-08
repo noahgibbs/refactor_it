@@ -1,0 +1,26 @@
+body {
+  background-color: #FFF;
+  font-family: Verdana, Helvetica, Arial;
+  font-size: 14px;
+}
+
+a img {
+  border: none;
+}
+
+a {
+  color: #0000FF;
+}
+
+body {
+  background-color: #D0D0FF;
+}
+
+#container {
+  width: 90%;
+  margin: 0 auto;
+  background-color: #F8F8F8;
+  padding: 20px 40px;
+  border: solid 1px black;
+  margin-top: 20px;
+}
