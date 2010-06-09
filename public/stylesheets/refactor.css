@@ -24,3 +24,7 @@ body {
   border: solid 1px black;
   margin-top: 20px;
 }
+
+#logindiv {
+  float: right;
+}
