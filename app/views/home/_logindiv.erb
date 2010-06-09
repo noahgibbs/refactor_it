@@ -1,0 +1,8 @@
+<div id='logindiv'>
+  <% if current_user %>
+    <%= link_to 'Sign Out', destroy_user_session %>
+  <% else %>
+    <%= link_to 'Sign In', new_user_session_url %> or
+    <%= link_to 'Register', new_user_registration_url %>
+  <% end %>
+</div>
