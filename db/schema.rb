@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100609054429) do
+ActiveRecord::Schema.define(:version => 20100610045416) do
 
   create_table "snippets", :force => true do |t|
     t.string   "title"
