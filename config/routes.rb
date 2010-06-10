@@ -28,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.devise_for :users
 
-  map.resources :snippets
+  map.resources :snippets, :collection => { :enigmas => :get, :newest => :get }
 
   map.root :controller => "home"
 

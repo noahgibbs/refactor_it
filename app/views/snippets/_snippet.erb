@@ -1,0 +1,31 @@
+<div class="snippet_container">
+
+<h2> <%= h snippet.title %> </h2>
+
+<p class="snippet_language">
+  Written in <%= h snippet.language %>
+</p>
+
+<pre>
+  <%= h snippet.body %>
+</pre>
+
+<p>
+  <%= h snippet.notes %>
+</p>
+
+<p class="posted_date">
+  Posted: <%= snippet.created_at %>
+  <% if snippet.updated_at != snippet.created_at %>
+    <br/>Last Edited: <%= snipped.updated_at %>
+  <% end %>
+</p>
+
+<ul>
+  <li><%= link_to 'Show', snippet %></li>
+  <li><%= link_to 'Edit', edit_snippet_path(snippet) %></li>
+  <li><%= link_to 'Destroy', snippet, :confirm => 'Are you sure?',
+                  :method => :delete %></li>
+</ul>
+
+</div>

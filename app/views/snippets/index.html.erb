@@ -1,25 +1,6 @@
 <h1>Listing snippets</h1>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Body</th>
-    <th>Notes</th>
-    <th>Language</th>
-  </tr>
-
-<% @snippets.each do |snippet| %>
-  <tr>
-    <td><%=h snippet.title %></td>
-    <td><%=h snippet.body %></td>
-    <td><%=h snippet.notes %></td>
-    <td><%=h snippet.language %></td>
-    <td><%= link_to 'Show', snippet %></td>
-    <td><%= link_to 'Edit', edit_snippet_path(snippet) %></td>
-    <td><%= link_to 'Destroy', snippet, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<%= render :partial => @snippets %>
 
 <br />
 
