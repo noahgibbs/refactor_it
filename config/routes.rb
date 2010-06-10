@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.devise_for :users
+  map.resources :snippets
 
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
@@ -25,6 +25,10 @@ ActionController::Routing::Routes.draw do |map|
   #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
   #     admin.resources :products
   #   end
+
+  map.devise_for :users
+
+  map.resources :snippets, :collection => { :enigmas => :get, :newest => :get }
 
   map.root :controller => "home"
 
