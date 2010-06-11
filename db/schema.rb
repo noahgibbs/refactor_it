@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100610045416) do
+ActiveRecord::Schema.define(:version => 20100611025859) do
 
   create_table "snippets", :force => true do |t|
     t.string   "title"
@@ -48,5 +48,14 @@ ActiveRecord::Schema.define(:version => 20100610045416) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
+
+  create_table "votes", :force => true do |t|
+    t.integer  "snippet_id"
+    t.integer  "user_id"
+    t.integer  "vote_type"
+    t.integer  "vote_approved"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
