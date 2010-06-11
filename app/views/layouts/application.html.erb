@@ -5,11 +5,12 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title> <%= @title ? @title : "[Refactor]" %></title>
   <%= stylesheet_link_tag 'refactor' %>
+  <%= stylesheet_link_tag 'harsh/twilight' %>
   <%= javascript_include_tag "jquery-1.4.2" %>
   <%= javascript_include_tag "curvycorners.js" %>
 </head>
 <body>
-  <div id="container">
+  <div id="container" class="rounded1ex">
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, :id => "flash_#{name}" %>
     <% end %>

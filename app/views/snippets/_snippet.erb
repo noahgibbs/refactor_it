@@ -1,31 +1,34 @@
-<div class="snippet_container">
+<div class="snippet_container rounded16px">
 
-<h2> <%= h snippet.title %> </h2>
-
-<p class="snippet_language">
-  Written in <%= h snippet.language %>
-</p>
-
-<pre>
-  <%= h snippet.body %>
-</pre>
+<%= link_to "<h2> #{h snippet.title} </h2>", snippet %>
 
 <p>
+<span class="snippet_written_in">Written in</span>
+<span class="snippet_language"> <%= h snippet.language %> </span>
+</p>
+
+<% harsh :lines => true do %>
+  <%= snippet.body %>
+<% end %>
+
+<p class="snippet_notes">
   <%= h snippet.notes %>
 </p>
 
-<p class="posted_date">
+<p>
+  <span class="posted_date">
   Posted: <%= snippet.created_at %>
   <% if snippet.updated_at != snippet.created_at %>
-    <br/>Last Edited: <%= snipped.updated_at %>
+    / Last Edited: <%= snipped.updated_at %>
   <% end %>
-</p>
+  </span>
 
-<ul>
-  <li><%= link_to 'Show', snippet %></li>
-  <li><%= link_to 'Edit', edit_snippet_path(snippet) %></li>
-  <li><%= link_to 'Destroy', snippet, :confirm => 'Are you sure?',
-                  :method => :delete %></li>
-</ul>
+  &nbsp; &nbsp; &nbsp;
+
+  <%= link_to_unless_current 'Show', snippet %>
+  <%= link_to 'Edit', edit_snippet_path(snippet) %>
+  <%= link_to 'Destroy', snippet, :confirm => 'Delete this snippet?',
+              :method => :delete %>
+</p>
 
 </div>
