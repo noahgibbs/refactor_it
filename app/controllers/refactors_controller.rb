@@ -4,7 +4,7 @@ class RefactorsController < ApplicationController
   # GET /refactors
   # GET /refactors.xml
   def index
-    @refactors = @snippet.refactors
+    @refactors = @snippet ? @snippet.refactors : Refactor.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,7 +26,7 @@ class RefactorsController < ApplicationController
   # GET /refactors/new
   # GET /refactors/new.xml
   def new
-    @refactor = @snippet.refactors.create
+    @refactor = @snippet ? @snippet.refactors.build : Refactor.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -86,6 +86,6 @@ class RefactorsController < ApplicationController
   private
 
   def capture_snippet
-    @snippet = Snippet.find params[:snippet_id]
+    @snippet = Snippet.find params[:snippet_id] if params[:snippet_id]
   end
 end
