@@ -1,8 +1,10 @@
 class RefactorsController < ApplicationController
+  before_filter :capture_snippet
+
   # GET /refactors
   # GET /refactors.xml
   def index
-    @refactors = Refactor.all
+    @refactors = @snippet.refactors
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +26,7 @@ class RefactorsController < ApplicationController
   # GET /refactors/new
   # GET /refactors/new.xml
   def new
-    @refactor = Refactor.new
+    @refactor = @snippet.refactors.create
 
     respond_to do |format|
       format.html # new.html.erb
@@ -79,5 +81,11 @@ class RefactorsController < ApplicationController
       format.html { redirect_to(refactors_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+
+  def capture_snippet
+    @snippet = Snippet.find params[:snippet_id]
   end
 end

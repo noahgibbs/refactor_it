@@ -26,10 +26,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.devise_for :users
 
-  map.resources :refactors
-
   map.resources :snippets, :collection => { :vote => :post },
-                :has_many => :refactors
+                :has_many => :refactors do |snippets|
+    snippets.resources :refactors
+  end
 
   map.root :controller => "home"
 
