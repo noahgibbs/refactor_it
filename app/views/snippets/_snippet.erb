@@ -1,6 +1,6 @@
-<div class="snippet_container rounded16px">
+<div class="snippet_container">
 
-<%= link_to "<h2> #{h snippet.title} </h2>", snippet %>
+<%= link_to_unless_current "<h2> #{h snippet.title} </h2>", snippet %>
 
 <p>
 <span class="snippet_written_in">Written in</span>
@@ -12,6 +12,7 @@
 <% end %>
 
 <p class="snippet_notes">
+  <span class="snippet_notes_tag">Notes:</span>
   <%= h snippet.notes %>
 </p>
 

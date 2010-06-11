@@ -1,3 +1,5 @@
-<%= render :partial => "snippet", :object => @snippet %>
+<div class="navbubble">
+  <p> <%= link_to 'All Snippets', snippets_path %> </p>
+</div>
 
-<%= link_to 'All Snippets', snippets_path %>
+<%= render :partial => "snippet", :object => @snippet %>

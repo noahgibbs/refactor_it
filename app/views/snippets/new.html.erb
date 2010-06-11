@@ -1,5 +1,9 @@
-<h1>New snippet</h1>
+<div class="navbubble">
+  <h1>New snippet</h1>
+
+  <p> &nbsp;&nbsp;&nbsp;
+    <%= link_to 'All Snippets', snippets_path %>
+  </p>
+</div>
 
 <%= render :partial => 'snippet_form', :locals => { :snippet => @snippet, :update_text => 'Create' } %>
-
-<%= link_to 'Back', snippets_path %>
