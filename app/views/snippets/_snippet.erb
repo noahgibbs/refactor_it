@@ -1,34 +1,47 @@
 <div class="snippet_container">
 
-<%= link_to_unless_current "<h2> #{h snippet.title} </h2>", snippet %>
+<div class="left_snippet_box">
+  <img src="/images/rails.png" />
 
-<% harsh :lines => true do %>
-  <%= snippet.body %>
-<% end %>
+  <div class="vote_button">
+    Vote!
+  </div>
+</div>
 
-<p class="snippet_notes">
-  <span class="snippet_notes_tag">Notes:</span>
-  <%= h snippet.notes %>
-</p>
+<div class="main_snippet_box">
 
-<p>
-  <span class="snippet_written_in">Written in</span>
-  <span class="snippet_language"> <%= h snippet.language %> </span>
-</p>
+  <%= link_to_unless_current "<h2> #{h snippet.title} </h2>", snippet %>
 
-<p>
-  <span class="posted_date">
-  Posted: <%= snippet.created_at %>
-  <% if snippet.updated_at != snippet.created_at %>
-    / Last Edited: <%= snippet.updated_at %>
+  <% harsh :lines => true do %>
+    <%= snippet.body %>
   <% end %>
-  </span>
 
-  &nbsp; &nbsp; &nbsp;
-  <%= link_to_unless_current 'Show', snippet %>
-  <%= link_to 'Edit', edit_snippet_path(snippet) %>
-  <%= link_to 'Destroy', snippet, :confirm => 'Delete this snippet?',
+  <p class="snippet_notes">
+    <span class="snippet_notes_tag">Notes:</span>
+    <%= h snippet.notes %>
+  </p>
+
+  <p>
+    <span class="snippet_written_in">Written in</span>
+    <span class="snippet_language"> <%= h snippet.language %> </span>
+  </p>
+
+  <p>
+    <span class="posted_date">
+    Posted: <%= snippet.created_at %>
+    <% if snippet.updated_at != snippet.created_at %>
+      / Last Edited: <%= snippet.updated_at %>
+    <% end %>
+    </span>
+
+    &nbsp; &nbsp; &nbsp;
+    <%= link_to_unless_current 'Show', snippet %>
+    <%= link_to 'Edit', edit_snippet_path(snippet) %>
+    <%= link_to 'Destroy', snippet, :confirm => 'Delete this snippet?',
               :method => :delete %>
-</p>
+  </p>
+</div>
+
+<div class="clear"> </div>
 
 </div>

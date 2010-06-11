@@ -11,10 +11,15 @@
 </head>
 <body>
   <div id="container" class="rounded1ex">
-    <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    <% unless flash.empty? %>
+      <div id="flash_container">
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, "&nbsp;" * 3 + msg, :id => "flash_#{name}" %>
+        <% end %>
+      </div>
     <% end %>
     <%= yield %>
+    <div class="clear"></div>
   </div>
 </body>
 </html>
