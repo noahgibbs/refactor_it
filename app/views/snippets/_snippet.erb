@@ -2,11 +2,6 @@
 
 <%= link_to_unless_current "<h2> #{h snippet.title} </h2>", snippet %>
 
-<p>
-<span class="snippet_written_in">Written in</span>
-<span class="snippet_language"> <%= h snippet.language %> </span>
-</p>
-
 <% harsh :lines => true do %>
   <%= snippet.body %>
 <% end %>
@@ -14,6 +9,11 @@
 <p class="snippet_notes">
   <span class="snippet_notes_tag">Notes:</span>
   <%= h snippet.notes %>
+</p>
+
+<p>
+  <span class="snippet_written_in">Written in</span>
+  <span class="snippet_language"> <%= h snippet.language %> </span>
 </p>
 
 <p>
