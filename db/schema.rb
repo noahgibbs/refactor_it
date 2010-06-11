@@ -9,16 +9,38 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100611025859) do
+ActiveRecord::Schema.define(:version => 20100611072936) do
+
+  create_table "refactors", :force => true do |t|
+    t.text     "body"
+    t.text     "comment"
+    t.integer  "snippet_id", :null => false
+    t.string   "language"
+    t.integer  "user_id"
+    t.string   "user_note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "refactors", ["created_at"], :name => "index_refactors_on_created_at"
+  add_index "refactors", ["snippet_id"], :name => "index_refactors_on_snippet_id"
+  add_index "refactors", ["updated_at"], :name => "index_refactors_on_updated_at"
+  add_index "refactors", ["user_id"], :name => "index_refactors_on_user_id"
 
   create_table "snippets", :force => true do |t|
     t.string   "title"
     t.text     "body"
     t.text     "notes"
     t.string   "language"
+    t.integer  "user_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "snippets", ["created_at"], :name => "index_snippets_on_created_at"
+  add_index "snippets", ["language"], :name => "index_snippets_on_language"
+  add_index "snippets", ["updated_at"], :name => "index_snippets_on_updated_at"
+  add_index "snippets", ["user_id"], :name => "index_snippets_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -50,10 +72,11 @@ ActiveRecord::Schema.define(:version => 20100611025859) do
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   create_table "votes", :force => true do |t|
-    t.integer  "snippet_id"
-    t.integer  "user_id"
-    t.integer  "vote_type"
-    t.integer  "vote_approved"
+    t.integer  "snippet_id",    :null => false
+    t.integer  "refactor_id"
+    t.integer  "user_id",       :null => false
+    t.integer  "vote_type",     :null => false
+    t.integer  "vote_approved", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

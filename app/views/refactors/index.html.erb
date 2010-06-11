@@ -1,0 +1,30 @@
+<h1>Listing refactors</h1>
+
+<table>
+  <tr>
+    <th>Body</th>
+    <th>Comment</th>
+    <th>Snippet</th>
+    <th>Language</th>
+    <th>User</th>
+    <th>User note</th>
+  </tr>
+
+<% @refactors.each do |refactor| %>
+  <tr>
+    <td><%=h refactor.body %></td>
+    <td><%=h refactor.comment %></td>
+    <td><%=h refactor.snippet_id %></td>
+    <td><%=h refactor.language %></td>
+    <td><%=h refactor.user_id %></td>
+    <td><%=h refactor.user_note %></td>
+    <td><%= link_to 'Show', refactor %></td>
+    <td><%= link_to 'Edit', edit_refactor_path(refactor) %></td>
+    <td><%= link_to 'Destroy', refactor, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New refactor', new_refactor_path %>

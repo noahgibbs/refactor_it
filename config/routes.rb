@@ -1,6 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :snippets
-
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
   # This route can be invoked with purchase_url(:id => product.id)
@@ -28,7 +26,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.devise_for :users
 
-  map.resources :snippets, :collection => { :vote => :post }
+  map.resources :refactors
+
+  map.resources :snippets, :collection => { :vote => :post },
+                :has_many => :refactors
 
   map.root :controller => "home"
 

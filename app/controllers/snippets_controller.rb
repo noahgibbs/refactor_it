@@ -45,7 +45,7 @@ class SnippetsController < ApplicationController
   # POST /snippets
   # POST /snippets.xml
   def create
-    @snippet = Snippet.new(params[:snippet])
+    @snippet = Snippet.new(params[:snippet].merge({:user_id => 7}))
 
     respond_to do |format|
       if @snippet.save

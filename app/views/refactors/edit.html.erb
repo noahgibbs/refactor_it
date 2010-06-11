@@ -1,0 +1,36 @@
+<h1>Editing refactor</h1>
+
+<% form_for(@refactor) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </p>
+  <p>
+    <%= f.label :snippet_id %><br />
+    <%= f.text_field :snippet_id %>
+  </p>
+  <p>
+    <%= f.label :language %><br />
+    <%= f.text_field :language %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :user_note %><br />
+    <%= f.text_field :user_note %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @refactor %> |
+<%= link_to 'Back', refactors_path %>
