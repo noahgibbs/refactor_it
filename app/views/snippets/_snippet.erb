@@ -4,7 +4,19 @@
   <img src="/images/rails.png" />
 
   <div class="vote_button">
-    Vote!
+    <img src="/images/thumb-up.png" />
+    <%= link_to_remote "Vote Up!",
+                       :url => { :controller => 'snippets',
+                                 :action => :vote},
+                       :method => :post,
+                       :with => "'type=up'" %>
+  </div>
+  <div class="vote_button">
+    <%= link_to_remote "Vote Up!",
+                       :url => { :controller => 'snippets',
+                                 :action => :vote},
+                       :method => :post,
+                       :with => "'type=down'" %>
   </div>
 </div>
 

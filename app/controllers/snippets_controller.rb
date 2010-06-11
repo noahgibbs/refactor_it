@@ -21,6 +21,11 @@ class SnippetsController < ApplicationController
     end
   end
 
+  # POST /snippets/vote
+  def vote
+    render :text => "success"
+  end
+
   # GET /snippets/new
   # GET /snippets/new.xml
   def new

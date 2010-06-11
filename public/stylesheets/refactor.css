@@ -73,6 +73,7 @@ h1 {
   background-color: #00FF00;
   text-align: center;
   padding: 5%;
+  margin: 5%;
   -moz-border-radius:8px;
   -webkit-border-radius:8px;
 }
