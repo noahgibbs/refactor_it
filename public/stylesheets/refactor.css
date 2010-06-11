@@ -38,3 +38,9 @@ body {
   /* For IE 5.5 - 7 */
   filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
 }
+
+.rounded3 {
+  -moz-border-radius:3ex;
+  -webkit-border-radius:3ex;
+}
+
