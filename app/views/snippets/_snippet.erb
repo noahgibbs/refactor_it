@@ -12,7 +12,8 @@
                        :with => "'type=up'" %>
   </div>
   <div class="vote_button">
-    <%= link_to_remote "Vote Up!",
+    <img src="/images/smiley-sad-blue.png" />
+    <%= link_to_remote "Vote Down!",
                        :url => { :controller => 'snippets',
                                  :action => :vote},
                        :method => :post,
