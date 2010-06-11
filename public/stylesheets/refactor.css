@@ -43,6 +43,19 @@ h1 {
   color: #FF0000;
 }
 
+#logindiv {
+  float: right;
+  background-color: #FFFFFF;
+  padding: 10px;
+  color: #000000;
+  border: solid 2px black;
+  text-align: right;
+  min-width: 20%;
+  max-width: 80%;
+  -moz-border-radius:16px;
+  -webkit-border-radius:16px;
+}
+
 .navbubble {
   background-color: #FFFFFF;
   color: #000000;
@@ -102,10 +115,6 @@ h1 {
 .posted_date {
   font-size: 80%;
   color: #4040C0;
-}
-
-#logindiv {
-  float: right;
 }
 
 .center {

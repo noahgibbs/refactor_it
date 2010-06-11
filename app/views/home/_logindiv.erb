@@ -1,4 +1,4 @@
-<div id='logindiv'>
+<div id='logindiv' class='align_right'>
   <% if current_user %>
     <%= link_to 'Sign Out', destroy_user_session %>
   <% else %>
@@ -6,3 +6,5 @@
     <%= link_to 'Register', new_user_registration_url %>
   <% end %>
 </div>
+
+<div class="clear"> </div>
