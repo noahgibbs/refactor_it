@@ -1,0 +1,56 @@
+<div class="refactor_container">
+
+<div class="left_refactor_box">
+  <div class="vote_button">
+    <img src="/images/thumb-up.png" />
+    <%= link_to_remote "Vote Up!",
+                       :url => { :controller => 'refactors',
+                                 :action => :vote},
+                       :method => :post,
+                       :with => "'type=up'" %>
+  </div>
+  <div class="vote_button">
+    <img src="/images/smiley-sad-blue.png" />
+    <%= link_to_remote "Vote Down!",
+                       :url => { :controller => 'refactors',
+                                 :action => :vote},
+                       :method => :post,
+                       :with => "'type=down'" %>
+  </div>
+</div>
+
+<div class="main_refactor_box">
+
+  <% harsh :lines => true do %>
+    <%= refactor.body %>
+  <% end %>
+
+  <p class="refactor_comment">
+    <span class="refactor_comment_tag">Comment:</span>
+    <%= h refactor.comment %>
+  </p>
+
+  <p>
+    <span class="refactor_written_in">Written in</span>
+    <span class="refactor_language"> <%= h refactor.language %> </span>
+  </p>
+
+  <p>
+    <span class="posted_date">
+    Posted: <%= refactor.created_at %>
+    <% if refactor.updated_at != refactor.created_at %>
+      / Last Edited: <%= refactor.updated_at %>
+    <% end %>
+    </span>
+
+    &nbsp; &nbsp; &nbsp;
+    <%= link_to_unless_current 'Show', refactor %>
+    <%= link_to 'Edit', edit_refactor_path(refactor) %>
+    <%= link_to 'Destroy', refactor, :confirm => 'Delete this refactor?',
+              :method => :delete %>
+  </p>
+</div>
+
+<div class="clear"> </div>
+
+</div>

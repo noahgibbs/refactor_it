@@ -1,35 +1,12 @@
-<h1>New refactor</h1>
+<% title "New Refactor" %>
 
-<% form_for(@refactor) do |f| %>
-  <%= f.error_messages %>
+<div class="navbubble">
+  <h1>New Refactor</h1>
 
-  <p>
-    <%= f.label :body %><br />
-    <%= f.text_area :body %>
+  <p> &nbsp;&nbsp;&nbsp;
+    <%= link_to 'All Refactors', refactors_path %>
+    <%= link_to 'All Snippets', snippets_path %>
   </p>
-  <p>
-    <%= f.label :comment %><br />
-    <%= f.text_area :comment %>
-  </p>
-  <p>
-    <%= f.label :snippet_id %><br />
-    <%= f.text_field :snippet_id %>
-  </p>
-  <p>
-    <%= f.label :language %><br />
-    <%= f.text_field :language %>
-  </p>
-  <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
-  </p>
-  <p>
-    <%= f.label :user_note %><br />
-    <%= f.text_field :user_note %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
+</div>
 
-<%= link_to 'Back', refactors_path %>
+<%= render :partial => 'refactor_form', :locals => { :refactor => @refactor, :update_text => 'Create' } %>

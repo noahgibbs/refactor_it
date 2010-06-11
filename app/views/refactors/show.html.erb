@@ -1,33 +1,11 @@
-<p>
-  <b>Body:</b>
-  <%=h @refactor.body %>
-</p>
+<% title "Show Refactor" %>
 
-<p>
-  <b>Comment:</b>
-  <%=h @refactor.comment %>
-</p>
+<div class="navbubble">
+  <p>
+    <%= link_to 'All Refactors', refactors_path %>
+    <%= link_to 'Show This Refactor\'s Snippet', @refactor.snippet %>
+    <%= link_to 'All Snippets', snippets_path %>
+  </p>
+</div>
 
-<p>
-  <b>Snippet:</b>
-  <%=h @refactor.snippet_id %>
-</p>
-
-<p>
-  <b>Language:</b>
-  <%=h @refactor.language %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%=h @refactor.user_id %>
-</p>
-
-<p>
-  <b>User note:</b>
-  <%=h @refactor.user_note %>
-</p>
-
-
-<%= link_to 'Edit', edit_refactor_path(@refactor) %> |
-<%= link_to 'Back', refactors_path %>
+<%= render :partial => "refactor", :object => @refactor %>

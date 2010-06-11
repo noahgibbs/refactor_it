@@ -112,6 +112,45 @@ h1 {
   color: #0000FF;
 }
 
+.refactor_container {
+  padding: 10px;
+  background-color: #C0C0FF;
+  border: solid 2px black;
+  -moz-border-radius:16px;
+  -webkit-border-radius:16px;
+}
+
+.left_refactor_box {
+  float: left;
+  background-color: #2020FF;
+  border: solid 2px black;
+  padding: 5px;
+  margin: 5px;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+}
+
+.main_refactor_box {
+}
+
+.refactor_notes {
+  padding: 10px;
+  background-color: #E0E0FF;
+}
+
+.refactor_notes_tag {
+  color: #404040;
+  font-size: 80%;
+}
+
+.refactor_written_in {
+  color: #F0F0FF;
+}
+
+.refactor_language {
+  color: #0000FF;
+}
+
 .posted_date {
   font-size: 80%;
   color: #4040C0;

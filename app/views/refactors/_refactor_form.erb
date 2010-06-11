@@ -1,0 +1,35 @@
+<div class="refactor_container">
+
+<% form_for(refactor) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :Code %><br />
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </p>
+  <p>
+    <%= f.label :language %><br />
+    <%= f.text_field :language %>
+  </p>
+  <p>
+    <%= f.label :snippet_id %><br />
+    <%= f.text_area :snippet_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_area :user_id %>
+  </p>
+  <p>
+    <%= f.label :user_note %><br />
+    <%= f.text_area :user_note %>
+  </p>
+  <p>
+    <%= f.submit update_text %>
+  </p>
+<% end %>
+
+</div>
