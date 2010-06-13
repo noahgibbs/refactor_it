@@ -1,21 +1,15 @@
 <div class="snippet_container">
 
 <div class="left_snippet_box">
+  This snippet is:
+  <%= select(:vote, :vote_type, ['Interesting', 'Not Interesting', 'Spam'],
+             {}, { :class => :snippet_vote_selector })
+   %>
+
   <div class="vote_button">
-    <img src="/images/thumb-up.png" />
-    <%= link_to_remote "Vote Up!",
-                       :url => { :controller => 'snippets',
-                                 :action => :vote},
-                       :method => :post,
-                       :with => "'type=up'" %>
-  </div>
-  <div class="vote_button">
-    <img src="/images/smiley-sad-blue.png" />
-    <%= link_to_remote "Vote Down!",
-                       :url => { :controller => 'snippets',
-                                 :action => :vote},
-                       :method => :post,
-                       :with => "'type=down'" %>
+    <% vote_url = url_for :controller => :snippets, :action => :vote,
+                          :id => snippet.id %>
+    <%= button_to 'Vote', vote_url %>
   </div>
 </div>
 
@@ -46,7 +40,8 @@
     </span>
 
     &nbsp; &nbsp; &nbsp;
-    <%= link_to_unless_current 'Show', snippet %>
+    <% n_refactors = snippet.refactors.count %>
+    <%= link_to_unless_current "#{n_refactors} Refactors", snippet %>
     <%= link_to 'Edit', edit_snippet_path(snippet) %>
     <%= link_to 'Destroy', snippet, :confirm => 'Delete this snippet?',
               :method => :delete %>

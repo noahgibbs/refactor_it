@@ -2,7 +2,6 @@
 
 <div class="left_refactor_box">
   <div class="vote_button">
-    <img src="/images/thumb-up.png" />
     <%= link_to_remote "Vote Up!",
                        :url => { :controller => 'refactors',
                                  :action => :vote},
@@ -10,7 +9,6 @@
                        :with => "'type=up'" %>
   </div>
   <div class="vote_button">
-    <img src="/images/smiley-sad-blue.png" />
     <%= link_to_remote "Vote Down!",
                        :url => { :controller => 'refactors',
                                  :action => :vote},
