@@ -3,13 +3,15 @@
 <div class="ajax_snippet_box">
   This snippet is:
   <%= select(:vote, :vote_type, ['Interesting', 'Not Interesting', 'Spam'],
-             {}, { :class => :snippet_vote_selector })
+             {}, { :class => "snippet_vote_selector_#{snippet.id}" })
    %>
 
   <div class="vote_button">
-    <% vote_url = url_for :controller => :snippets, :action => :vote,
-                          :id => snippet.id %>
-    <%= button_to 'Vote', vote_url %>
+    <%= link_to_remote "Vote!",
+                       :url => { :controller => 'snippets',
+                                 :action => :vote, :id => snippet.id },
+                       :method => :post,
+                       :with => "'type=' + $$('.snippet_vote_selector_#{snippet.id}')[0].selectedIndex" %>
   </div>
 </div>
 

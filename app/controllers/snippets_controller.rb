@@ -23,7 +23,9 @@ class SnippetsController < ApplicationController
 
   # POST /snippets/vote
   def vote
-    render :text => "success"
+    render(:update) do |page|
+      page << "alert('got here!');"
+    end
   end
 
   # GET /snippets/new
