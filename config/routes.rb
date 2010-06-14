@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.devise_for :users
 
-  map.resources :refactors
+  #map.resources :refactors
 
   map.resources :snippets, :collection => { :vote => :post },
                 :has_many => :refactors do |snippets|

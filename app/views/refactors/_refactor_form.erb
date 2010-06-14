@@ -1,6 +1,6 @@
 <div class="refactor_container">
 
-<% form_for(refactor) do |f| %>
+<% form_for([refactor.snippet, refactor]) do |f| %>
   <%= f.error_messages %>
 
   <p>

@@ -1,9 +1,3 @@
-body {
-  background-color: #FFF;
-  font-family: Verdana, Helvetica, Arial;
-  font-size: 14px;
-}
-
 a img {
   border: none;
 }
@@ -13,7 +7,9 @@ a {
 }
 
 body {
-  background-color: #2020FF;
+  background-color: #F0E8FF;
+  font-family: Verdana, Helvetica, Arial;
+  font-size: 14px;
 }
 
 h1 {
@@ -72,9 +68,9 @@ h1 {
   -webkit-border-radius:16px;
 }
 
-.left_snippet_box {
-  float: left;
-  background-color: #2020FF;
+.ajax_snippet_box {
+  float: right;
+  background-color: #8070FF;
   border: solid 2px black;
   padding: 5px;
   margin: 5px;
@@ -120,7 +116,7 @@ h1 {
   -webkit-border-radius:16px;
 }
 
-.left_refactor_box {
+.ajax_refactor_box {
   float: left;
   background-color: #2020FF;
   border: solid 2px black;

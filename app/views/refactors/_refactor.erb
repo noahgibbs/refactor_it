@@ -1,6 +1,6 @@
 <div class="refactor_container">
 
-<div class="left_refactor_box">
+<div class="ajax_refactor_box">
   <div class="vote_button">
     <%= link_to_remote "Vote Up!",
                        :url => { :controller => 'refactors',
@@ -44,9 +44,9 @@
     </span>
 
     &nbsp; &nbsp; &nbsp;
-    <%= link_to_unless_current 'Show', refactor %>
-    <%= link_to 'Edit', edit_refactor_path(refactor) %>
-    <%= link_to 'Destroy', refactor, :confirm => 'Delete this refactor?',
+    <%= link_to_unless_current 'Show', snippet_refactor_path(refactor.snippet, refactor) %>
+    <%= link_to 'Edit', edit_snippet_refactor_path(refactor.snippet, refactor) %>
+    <%= link_to 'Destroy', snippet_refactor_path(refactor.snippet, refactor), :confirm => 'Delete this refactor?',
               :method => :delete %>
   </p>
 </div>
