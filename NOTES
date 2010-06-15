@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM votes WHERE refactor_id IS NULL AND vote_approved = 1 AND user_id IS NOT NULL GROUP BY snippet_id, vote_type
