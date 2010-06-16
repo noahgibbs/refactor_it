@@ -1,12 +1,14 @@
-Serve select options for Snippet voting based on server list of vote types
+Real controller actions for snippet voting
 
-Hook in real AJAX actions for snippet voting
+AJAX responses to snippet voting
 
 Order snippets based on vote count
   - count votes
   - score based on vote counts
 
-Hook in real AJAX actions for refactor voting
+Real controller actions for refactor voting
+
+AJAX responses to refactor voting
 
 Order refactors based on vote count
 
