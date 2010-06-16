@@ -30,3 +30,5 @@ Email notification (same conditions as RSS feeds)
 Trim final blank lines from displayed code
 
 Guarantee language specified is a legal language
+
+Add vote index by user-and-snippet, and by user-and-refactor

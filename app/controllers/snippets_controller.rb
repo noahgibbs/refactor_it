@@ -59,11 +59,19 @@ class SnippetsController < ApplicationController
     end
   end
 
-  # POST /snippets/vote?id=""
+  # POST /snippets/vote?id=274&type=Interesting
   def vote
-    render(:update) do |page|
-      #page << "alert('got here!');"
-      
+    snippet_id = params[:id].to_i
+
+    # TODO: find just vote(s) from this user to delete
+    votes = Vote.find(:all, :conditions => { :snippet_id => snippet_id })
+    votes.each { |vote| vote.destroy }
+
+    vote = Vote.new :snippet_id => snippet_id, :vote_type => params[:type]
+    if vote.save
+      render :text => "success"
+    else
+      render :text => "Couldn't vote!", :status => 500
     end
   end
 

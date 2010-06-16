@@ -8,7 +8,7 @@ function rfi_ajax_vote(url, data, onsuccess) {
     data: data,
     dataType: "text",
     success: function(data, textStatus, xhr) {
-      eval(data);
+      //eval(data);
       if(onsuccess) { onsuccess(); }
     },
     error: function(xhr, textStatus, errorThrown) {
