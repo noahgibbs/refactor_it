@@ -11,3 +11,18 @@ Hook in real AJAX actions for refactor voting
 Order refactors based on vote count
 
 (HUGE) Logins, permission, karma
+
+
+=== Later? ===
+
+RSS feed for all languages
+RSS feed per-language
+RSS feed with keywords
+
+Email notification (same conditions as RSS feeds)
+
+=== Small ===
+
+Trim final blank lines from displayed code
+
+Guarantee language specified is a legal language
