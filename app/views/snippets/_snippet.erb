@@ -1,13 +1,29 @@
 <div class="snippet_container">
 
 <div class="ajax_snippet_box">
-  This snippet is:
-  <%= select(:vote, :vote_type, SnippetsController::VoteTypeNames,
-             {}, { :class => "snippet_vote_selector_#{snippet.id}" })
-   %>
+  <div class="snippet_vote_area<%= @vote_display[snippet.id] %>"
+       id="snippet_vote_area_<%= snippet.id %>">
+    This snippet is:
+    <%= select(:vote, :vote_type, SnippetsController::VoteTypeNames,
+               {}, { :class => "snippet_vote_selector_#{snippet.id}" })
+     %>
 
-  <div class="snippet_vote_button" id="vote_button_<%= snippet.id -%>">
-    <p>Vote!</p>
+    <div class="snippet_vote_button shadow"
+         id="vote_button_<%= snippet.id -%>">
+      Vote!
+    </div>
+  </div>
+
+  <div class="snippet_unvote_area<%= @unvote_display[snippet.id] %>"
+       id="snippet_unvote_area_<%= snippet.id %>">
+    You voted this snippet was
+    <span id="snippet_vote_type_<%= snippet.id %>">
+      <%= @vote_type[snippet.id] %></span>.
+
+    <div class="snippet_unvote_button shadow"
+         id="unvote_button_<%= snippet.id -%>">
+      Changed My Mind!
+    </div>
   </div>
 </div>
 

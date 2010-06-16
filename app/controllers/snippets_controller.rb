@@ -1,7 +1,10 @@
 class SnippetsController < ApplicationController
+  before_filter :vote_display
+
   # GET /snippets
   # GET /snippets.xml
   VoteTypes = {
+    "Unvote" => 1,
 
     "Interesting" => 1001,
     "Difficult" => 1002,
@@ -10,7 +13,12 @@ class SnippetsController < ApplicationController
     "Spam" => 2002
   }
 
-  VoteTypeNames = VoteTypes.keys.sort {|a,b| VoteTypes[a] <=> VoteTypes[b] }
+  VoteTypesByNumber = {}
+  VoteTypes.each { |key, val| VoteTypesByNumber[val] = key }
+
+  VoteTypeNames = (VoteTypes.keys - ["Unvote"]).sort {|a,b|
+    VoteTypes[a] <=> VoteTypes[b]
+  }
 
   Languages = {
     "C" => "c",
@@ -31,6 +39,7 @@ class SnippetsController < ApplicationController
 
   def index
     @snippets = Snippet.all :order => "created_at DESC", :limit => 10
+    @snippets.each {|snippet| set_vote_display snippet}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,6 +51,7 @@ class SnippetsController < ApplicationController
   # GET /snippets/1.xml
   def show
     @snippet = Snippet.find(params[:id])
+    set_vote_display @snippet
 
     respond_to do |format|
       format.html # show.html.erb
@@ -49,10 +59,11 @@ class SnippetsController < ApplicationController
     end
   end
 
-  # POST /snippets/vote
+  # POST /snippets/vote?id=""
   def vote
     render(:update) do |page|
-      page << "alert('got here!');"
+      #page << "alert('got here!');"
+      
     end
   end
 
@@ -92,6 +103,7 @@ class SnippetsController < ApplicationController
   # PUT /snippets/1.xml
   def update
     @snippet = Snippet.find(params[:id])
+    set_vote_display @snippet
 
     respond_to do |format|
       if @snippet.update_attributes(params[:snippet])
@@ -113,6 +125,28 @@ class SnippetsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(snippets_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  private
+
+  def vote_display
+    @vote_display = {}
+    @unvote_display = {}
+    @vote_type = {}
+  end
+
+  def set_vote_display(snippet)
+    id = snippet.id
+    vote = Vote.find_by_snippet_id id  # TODO: and by user
+
+    if vote && !vote.empty?
+      @vote_display[id] = " nodisplay"
+      @unvote_display[id] = ""
+      @vote_type[id] = VoteTypesByNumber[vote[0].vote_type]
+    else
+      @unvote_display[id] = " nodisplay"
+      @vote_display[id] = ""
     end
   end
 end

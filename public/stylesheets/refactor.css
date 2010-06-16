@@ -87,8 +87,26 @@ h1 {
   -webkit-border-radius:8px;
 }
 
+.snippet_unvote_button {
+  background-color: #FF0000;
+  text-align: center;
+  padding: 5%;
+  margin: 5%;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+}
+
 .refactor_vote_button {
   background-color: #00FF00;
+  text-align: center;
+  padding: 5%;
+  margin: 5%;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+}
+
+.refactor_unvote_button {
+  background-color: #FF0000;
   text-align: center;
   padding: 5%;
   margin: 5%;
