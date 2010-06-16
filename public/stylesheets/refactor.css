@@ -78,7 +78,16 @@ h1 {
   -webkit-border-radius:8px;
 }
 
-.vote_button {
+.snippet_vote_button {
+  background-color: #00FF00;
+  text-align: center;
+  padding: 5%;
+  margin: 5%;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+}
+
+.refactor_vote_button {
   background-color: #00FF00;
   text-align: center;
   padding: 5%;
@@ -110,14 +119,14 @@ h1 {
 
 .refactor_container {
   padding: 10px;
-  background-color: #C0C0FF;
+  background-color: #C0FFE0;
   border: solid 2px black;
   -moz-border-radius:16px;
   -webkit-border-radius:16px;
 }
 
 .ajax_refactor_box {
-  float: left;
+  float: right;
   background-color: #2020FF;
   border: solid 2px black;
   padding: 5px;
@@ -162,6 +171,10 @@ h1 {
 
 .clear {
   clear: both;
+}
+
+.nodisplay {
+  display: none;
 }
 
 .shadow {

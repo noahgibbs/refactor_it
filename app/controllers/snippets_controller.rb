@@ -1,6 +1,34 @@
 class SnippetsController < ApplicationController
   # GET /snippets
   # GET /snippets.xml
+  VoteTypes = {
+
+    "Interesting" => 1001,
+    "Difficult" => 1002,
+
+    "Not Code" => 2001,
+    "Spam" => 2002
+  }
+
+  VoteTypeNames = VoteTypes.keys.sort {|a,b| VoteTypes[a] <=> VoteTypes[b] }
+
+  Languages = {
+    "C" => "c",
+    "C++" => "c++",
+    "CSS" => "css",
+    "Dylan" => "dylan",
+    "HTML" => "html",
+    "Java" => "java",
+    "JavaScript/ECMAScript" => "javascript",
+    "JavaScript (jQuery)" => "jquery_javascript",
+    "JavaScript (Prototype)" => "javascript_+_prototype",
+    "Rails (Ruby)" => "ruby_on_rails",
+    "Rails (HTML/Erb)" => "html_rails",
+    "Rails (SQL)" => "sql_rails",
+    "Ruby" => "ruby",
+    "SQL" => "sql",
+  }
+
   def index
     @snippets = Snippet.all :order => "created_at DESC", :limit => 10
 

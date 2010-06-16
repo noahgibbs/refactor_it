@@ -17,7 +17,8 @@
   </p>
   <p>
     <%= f.label :language %><br />
-    <%= f.text_field :language %>
+    <%= f.select :language, SnippetsController::Languages.keys.sort,
+        :default => "Ruby" %>
   </p>
   <p>
     <%= f.submit update_text %>

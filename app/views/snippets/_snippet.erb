@@ -2,16 +2,12 @@
 
 <div class="ajax_snippet_box">
   This snippet is:
-  <%= select(:vote, :vote_type, ['Interesting', 'Not Interesting', 'Spam'],
+  <%= select(:vote, :vote_type, SnippetsController::VoteTypeNames,
              {}, { :class => "snippet_vote_selector_#{snippet.id}" })
    %>
 
-  <div class="vote_button">
-    <%= link_to_remote "Vote!",
-                       :url => { :controller => 'snippets',
-                                 :action => :vote, :id => snippet.id },
-                       :method => :post,
-                       :with => "'type=' + $$('.snippet_vote_selector_#{snippet.id}')[0].selectedIndex" %>
+  <div class="snippet_vote_button" id="vote_button_<%= snippet.id -%>">
+    <p>Vote!</p>
   </div>
 </div>
 
@@ -19,7 +15,9 @@
 
   <%= link_to_unless_current "<h2> #{h snippet.title} </h2>", snippet %>
 
-  <% harsh :lines => true do %>
+  <% harsh_format = SnippetsController::Languages[snippet.language]
+     harsh_format ||= "ruby"
+     harsh :lines => true, :format => harsh_format, :theme => :eiffel do %>
     <%= snippet.body %>
   <% end %>
 
