@@ -26,3 +26,5 @@ Email notification (same conditions as RSS feeds)
 === Small ===
 
 Add vote index by user-and-snippet, and by user-and-refactor
+
+Maybe move "Ruby/Written in Ruby" into floated-right div under other div
