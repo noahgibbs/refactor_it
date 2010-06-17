@@ -31,6 +31,8 @@
 
   <%= link_to_unless_current "<h2> #{h snippet.title} </h2>", snippet %>
 
+  <p> Karma: <%= @snippet_karma[snippet.id] || "??" %> </p>
+
   <% harsh_format = SnippetsController::Languages[snippet.language]
      harsh_format ||= "ruby"
      harsh :lines => true, :format => harsh_format, :theme => :eiffel do %>

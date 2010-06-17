@@ -64,32 +64,36 @@ class SnippetsController < ApplicationController
     vote_counts.each do |snippet_id, vote_table|
       total = 0
       vote_table.each do |vtype, count|
-        if vtype > 2000  # spam or inappropriate
+        if vtype >= 2000  # spam or inappropriate
           total -= count * 5
-        elsif vtype > 1000  # interesting or appropriate
+        elsif vtype >= 1000  # interesting or appropriate
           total += count
+        else
+          raise "Unvote found in votes!"
         end
       end
       vote_counts[snippet_id]['value'] = total
     end
+
+    snippet_ids = vote_counts.keys
 
     # Get random snippets, in case we have fewer ranked snippets than
     # requested, or fewer with rank above 0
     unranked_snippets = Snippet.all :order => "created_at DESC",
                                     :limit => MaxSnippets
     unranked_snippets ||= []  # in case there are none
-    unranked_snippet_ids = unranked_snippets.map &:id
+    unranked_snippet_ids = unranked_snippets.map(&:id) - snippet_ids
     unranked_snippet_ids.each { |id| vote_counts[id] = {'value' => 0} }
 
-    snippet_ids = vote_counts.keys | unranked_snippet_ids
-
+    snippet_ids |= unranked_snippet_ids
     snippet_ids = snippet_ids.sort { |a, b|
-      vote_counts[a]['value'] <=> vote_counts[b]['value']
+      vote_counts[b]['value'] <=> vote_counts[a]['value']
     }
     snippet_ids = snippet_ids[0..MaxSnippets-1]
 
-    @snippets = Snippet.find snippet_ids
+    @snippets = snippet_ids.map {|id| Snippet.find id }
     @snippets.each {|snippet| set_vote_display snippet}
+    @snippet_karma = snippet_ids.map { |id| vote_counts[id]['value'] }
 
     respond_to do |format|
       format.html { render :action => :index }
