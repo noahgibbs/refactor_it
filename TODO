@@ -32,3 +32,5 @@ Trim final blank lines from displayed code
 Guarantee language specified is a legal language
 
 Add vote index by user-and-snippet, and by user-and-refactor
+
+Maybe move "Ruby/Written in Ruby" into floated-right div under other div
