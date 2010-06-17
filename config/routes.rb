@@ -28,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
 
   #map.resources :refactors
 
-  map.resources :snippets, :collection => { :vote => :post },
+  map.resources :snippets, :collection => { :vote => :post, :hottest => :get },
                 :has_many => :refactors do |snippets|
     snippets.resources :refactors
   end

@@ -47,6 +47,11 @@ class SnippetsController < ApplicationController
     end
   end
 
+  def hottest
+    results = Vote.connection.execute("SELECT COUNT(*) FROM votes WHERE refactor_id IS NULL AND vote_approved = 1 AND user_id IS NOT NULL GROUP_BY snippet_id, vote_type")
+    render :text => results.inspect
+  end
+
   # GET /snippets/1
   # GET /snippets/1.xml
   def show
@@ -67,7 +72,7 @@ class SnippetsController < ApplicationController
     votes = Vote.find(:all, :conditions => { :snippet_id => snippet_id })
     votes.each { |vote| vote.destroy }
 
-    vote = Vote.new :snippet_id => snippet_id, :vote_type => params[:type]
+    vote = Vote.new :snippet_id => snippet_id, :vote_type => VoteTypes[params[:type]]
     if vote.save
       render :text => "success"
     else
@@ -94,6 +99,8 @@ class SnippetsController < ApplicationController
   # POST /snippets
   # POST /snippets.xml
   def create
+    params[:body] = params[:body] ? params[:body].strip : params[:body]
+    params[:language] = Languages[params[:language]] || "Ruby"
     @snippet = Snippet.new(params[:snippet].merge({:user_id => 7}))
 
     respond_to do |format|

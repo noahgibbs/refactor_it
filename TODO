@@ -1,5 +1,3 @@
-Real controller actions for snippet voting
-
 AJAX responses to snippet voting
 
 Order snippets based on vote count
@@ -26,9 +24,5 @@ RSS feed with keywords
 Email notification (same conditions as RSS feeds)
 
 === Small ===
-
-Trim final blank lines from displayed code
-
-Guarantee language specified is a legal language
 
 Add vote index by user-and-snippet, and by user-and-refactor
