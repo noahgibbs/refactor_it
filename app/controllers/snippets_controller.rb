@@ -48,7 +48,7 @@ class SnippetsController < ApplicationController
   end
 
   def hottest
-    results = Vote.connection.execute("SELECT COUNT(*) FROM votes WHERE refactor_id IS NULL AND vote_approved = 1 AND user_id IS NOT NULL GROUP_BY snippet_id, vote_type")
+    results = Vote.connection.execute("SELECT snippet_id, vote_type, COUNT(*) FROM votes WHERE refactor_id IS NULL AND vote_approved = 1 AND user_id IS NOT NULL GROUP BY snippet_id, vote_type")
     render :text => results.inspect
   end
 
@@ -72,11 +72,15 @@ class SnippetsController < ApplicationController
     votes = Vote.find(:all, :conditions => { :snippet_id => snippet_id })
     votes.each { |vote| vote.destroy }
 
-    vote = Vote.new :snippet_id => snippet_id, :vote_type => VoteTypes[params[:type]]
-    if vote.save
+    if params[:type] == "Unvote"
       render :text => "success"
     else
-      render :text => "Couldn't vote!", :status => 500
+      vote = Vote.new :snippet_id => snippet_id, :vote_type => VoteTypes[params[:type]], :user_id => 7, :vote_approved => 1
+      if vote.save
+        render :text => "success"
+      else
+        render :text => "Couldn't vote!", :status => 500
+      end
     end
   end
 
@@ -155,10 +159,10 @@ class SnippetsController < ApplicationController
     id = snippet.id
     vote = Vote.find_by_snippet_id id  # TODO: and by user
 
-    if vote && !vote.empty?
+    if vote
       @vote_display[id] = " nodisplay"
       @unvote_display[id] = ""
-      @vote_type[id] = VoteTypesByNumber[vote[0].vote_type]
+      @vote_type[id] = VoteTypesByNumber[vote.vote_type]
     else
       @unvote_display[id] = " nodisplay"
       @vote_display[id] = ""
