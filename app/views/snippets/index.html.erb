@@ -1,13 +1,16 @@
 <% title "All Snippets" %>
 
 <div class="navbubble">
+  <%= render :partial => "home/logindiv" %>
 
-<h1>Listing snippets</h1>
-
-<p>
-  &nbsp; &nbsp; &nbsp; <%= link_to 'New snippet', new_snippet_path %>
-</p>
-
+  <div class="floatleft">
+    <p>
+      &nbsp; &nbsp; &nbsp;
+      <%= link_to 'New snippet', new_snippet_path %>
+    </p>
+  </div>
 </div>
+
+<div class="clear">
 
 <%= render :partial => @snippets %>

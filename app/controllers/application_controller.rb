@@ -6,5 +6,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+  filter_parameter_logging :password
+
+  def after_sign_in_path_for(resource)
+    url_for :controller => :snippets, :action => :hottest
+    #if resource.is_a?(User)
+    #  publisher_url
+    #else
+    #  super
+    #end
+  end
 end

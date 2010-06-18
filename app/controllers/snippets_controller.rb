@@ -43,6 +43,7 @@ class SnippetsController < ApplicationController
     @snippets = Snippet.all :order => "created_at DESC",
                             :limit => MaxSnippets
     @snippets.each {|snippet| set_vote_display snippet}
+    @snippet_karma = {}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -51,6 +52,12 @@ class SnippetsController < ApplicationController
   end
 
   def hottest
+    # TODO: refactor this mess.
+    # Rather than counting votes per-request, we should be
+    # including a karma/total field in each snippet and refactor
+    # that gets updated when votes do.  Karma logic belongs in
+    # the model.
+
     sql_results = Vote.connection.execute("SELECT snippet_id, vote_type, COUNT(*) FROM votes WHERE refactor_id IS NULL AND vote_approved = 1 AND user_id IS NOT NULL GROUP BY snippet_id, vote_type")
 
     vote_counts = {}
@@ -83,7 +90,9 @@ class SnippetsController < ApplicationController
                                     :limit => MaxSnippets
     unranked_snippets ||= []  # in case there are none
     unranked_snippet_ids = unranked_snippets.map(&:id) - snippet_ids
-    unranked_snippet_ids.each { |id| vote_counts[id] = {'value' => 0} }
+    unranked_snippet_ids.each { |id|
+      vote_counts[id] = {'value' => 0}
+    }
 
     snippet_ids |= unranked_snippet_ids
     snippet_ids = snippet_ids.sort { |a, b|
@@ -93,7 +102,11 @@ class SnippetsController < ApplicationController
 
     @snippets = snippet_ids.map {|id| Snippet.find id }
     @snippets.each {|snippet| set_vote_display snippet}
-    @snippet_karma = snippet_ids.map { |id| vote_counts[id]['value'] }
+
+    @snippet_karma = {}
+    snippet_ids.each { |id|
+      @snippet_karma[id] = vote_counts[id]['value']
+    }
 
     respond_to do |format|
       format.html { render :action => :index }
@@ -105,6 +118,7 @@ class SnippetsController < ApplicationController
   # GET /snippets/1.xml
   def show
     @snippet = Snippet.find(params[:id])
+    @snippet_karma = {}
     set_vote_display @snippet
 
     respond_to do |format|
@@ -208,12 +222,17 @@ class SnippetsController < ApplicationController
     id = snippet.id
     vote = Vote.find_by_snippet_id id  # TODO: and by user
 
+    @vote_display[id] = @unvote_display[id] = @novote_display = " nodisplay"
+
+    unless current_user
+      @novote_display = ""
+      return
+    end
+
     if vote
-      @vote_display[id] = " nodisplay"
       @unvote_display[id] = ""
       @vote_type[id] = VoteTypesByNumber[vote.vote_type]
     else
-      @unvote_display[id] = " nodisplay"
       @vote_display[id] = ""
     end
   end
