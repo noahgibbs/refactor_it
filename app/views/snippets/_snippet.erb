@@ -25,6 +25,18 @@
       Changed My Mind!
     </div>
   </div>
+
+  <div class="snippet_novote_area<%= @novote_display[snippet.id] %>"
+       id="snippet_novote_area_<%= snippet.id %>">
+    You must be <%= link_to 'logged in', new_user_session_url %>
+    to vote. <br />
+    (Or <%= link_to 'create an account', new_user_registration_url %>)
+  </div>
+
+  <div>
+    Our users think this snippet is
+    <span class="snippet_tag">placeholder</span>
+  </div>
 </div>
 
 <div class="main_snippet_box">
