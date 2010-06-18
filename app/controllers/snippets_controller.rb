@@ -18,22 +18,7 @@ class SnippetsController < ApplicationController
     VoteTypes[a] <=> VoteTypes[b]
   }
 
-  Languages = {
-    "C" => "c",
-    "C++" => "c++",
-    "CSS" => "css",
-    "Dylan" => "dylan",
-    "HTML" => "html",
-    "Java" => "java",
-    "JavaScript/ECMAScript" => "javascript",
-    "JavaScript (jQuery)" => "jquery_javascript",
-    "JavaScript (Prototype)" => "javascript_+_prototype",
-    "Rails (Ruby)" => "ruby_on_rails",
-    "Rails (HTML/Erb)" => "html_rails",
-    "Rails (SQL)" => "sql_rails",
-    "Ruby" => "ruby",
-    "SQL" => "sql",
-  }
+  Languages = Snippet::Languages
 
   MaxSnippets = 10
 
@@ -43,7 +28,6 @@ class SnippetsController < ApplicationController
     @snippets = Snippet.all :order => "created_at DESC",
                             :limit => MaxSnippets
     @snippets.each {|snippet| set_vote_display snippet}
-    @snippet_karma = {}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -103,7 +87,6 @@ class SnippetsController < ApplicationController
     @snippets = snippet_ids.map {|id| Snippet.find id }
     @snippets.each {|snippet| set_vote_display snippet}
 
-    @snippet_karma = {}
     snippet_ids.each { |id|
       @snippet_karma[id] = vote_counts[id]['value']
     }
@@ -118,7 +101,6 @@ class SnippetsController < ApplicationController
   # GET /snippets/1.xml
   def show
     @snippet = Snippet.find(params[:id])
-    @snippet_karma = {}
     set_vote_display @snippet
 
     respond_to do |format|
@@ -166,8 +148,6 @@ class SnippetsController < ApplicationController
   # POST /snippets
   # POST /snippets.xml
   def create
-    params[:body] = params[:body] ? params[:body].strip : params[:body]
-    params[:language] = Languages[params[:language]] || "Ruby"
     @snippet = Snippet.new(params[:snippet].merge({:user_id => 7}))
 
     respond_to do |format|
@@ -216,6 +196,7 @@ class SnippetsController < ApplicationController
     @vote_display = {}
     @unvote_display = {}
     @vote_type = {}
+    @snippet_karma = {}
   end
 
   def set_vote_display(snippet)

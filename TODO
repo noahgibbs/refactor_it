@@ -1,16 +1,10 @@
-AJAX responses to snippet voting
-
-Order snippets based on vote count
-  - count votes
-  - score based on vote counts
-
 Real controller actions for refactor voting
 
 AJAX responses to refactor voting
 
 Order refactors based on vote count
 
-(HUGE) Logins, permission, karma
+(HUGE) permissions, karma
 
 (HUGE) Anonymous votes
 
@@ -28,3 +22,5 @@ Email notification (same conditions as RSS feeds)
 Add vote index by user-and-snippet, and by user-and-refactor
 
 Maybe move "Ruby/Written in Ruby" into floated-right div under other div
+
+Move vote constants out of SnippetsController and into Vote model

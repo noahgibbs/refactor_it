@@ -28,6 +28,7 @@ h1 {
   padding: 5px;
   background-color: #C0C0C0;
   color: #FFFFFF;
+  border: solid 2px black;
   -moz-border-radius:16px;
   -webkit-border-radius:16px;
 }
