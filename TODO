@@ -22,5 +22,3 @@ Email notification (same conditions as RSS feeds)
 Add vote index by user-and-snippet, and by user-and-refactor
 
 Maybe move "Ruby/Written in Ruby" into floated-right div under other div
-
-Move vote constants out of SnippetsController and into Vote model

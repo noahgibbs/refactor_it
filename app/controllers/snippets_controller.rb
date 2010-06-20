@@ -1,24 +1,10 @@
 class SnippetsController < ApplicationController
   before_filter :vote_display
 
-  VoteTypes = {
-    "Unvote" => 1,
-
-    "Interesting" => 1001,
-    "Difficult" => 1002,
-
-    "Not Code" => 2001,
-    "Spam" => 2002
-  }
-
-  VoteTypesByNumber = {}
-  VoteTypes.each { |key, val| VoteTypesByNumber[val] = key }
-
-  VoteTypeNames = (VoteTypes.keys - ["Unvote"]).sort {|a,b|
-    VoteTypes[a] <=> VoteTypes[b]
-  }
-
   Languages = Snippet::Languages
+  VoteTypes = Vote::VoteTypes
+  VoteTypesByNumber = Vote::VoteTypesByNumber
+  VoteTypeNames = Vote::VoteTypeNames
 
   MaxSnippets = 10
 
