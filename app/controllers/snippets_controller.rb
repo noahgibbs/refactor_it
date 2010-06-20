@@ -87,10 +87,6 @@ class SnippetsController < ApplicationController
     @snippets = snippet_ids.map {|id| Snippet.find id }
     @snippets.each {|snippet| set_vote_display snippet}
 
-    snippet_ids.each { |id|
-      @snippet_karma[id] = vote_counts[id]['value']
-    }
-
     respond_to do |format|
       format.html { render :action => :index }
       format.xml  { render :action => :index, :xml => @snippets }
@@ -195,18 +191,18 @@ class SnippetsController < ApplicationController
   def vote_display
     @vote_display = {}
     @unvote_display = {}
+    @novote_display = {}
     @vote_type = {}
-    @snippet_karma = {}
   end
 
   def set_vote_display(snippet)
     id = snippet.id
     vote = Vote.find_by_snippet_id id  # TODO: and by user
 
-    @vote_display[id] = @unvote_display[id] = @novote_display = " nodisplay"
+    @vote_display[id] = @unvote_display[id] = @novote_display[id] = " nodisplay"
 
     unless current_user
-      @novote_display = ""
+      @novote_display[id] = ""
       return
     end
 
