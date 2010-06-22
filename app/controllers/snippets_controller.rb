@@ -1,5 +1,10 @@
 class SnippetsController < ApplicationController
   before_filter :vote_display
+  before_filter :authorize_user!,
+    :except => [:index, :show, :hottest]
+
+  # TODO: make vote_display an after_filter, based on
+  # @snippet and @snippets?
 
   Languages = Snippet::Languages
   VoteTypes = Vote::VoteTypes
@@ -95,8 +100,7 @@ class SnippetsController < ApplicationController
   def vote
     snippet_id = params[:id].to_i
 
-    # TODO: find just vote(s) from this user to delete
-    votes = Vote.find(:all, :conditions => { :snippet_id => snippet_id })
+    votes = Vote.find(:all, :conditions => { :snippet_id => snippet_id, :user_id => current_user.id })
     votes.each { |vote| vote.destroy }
 
     if params[:type] == "Unvote"
@@ -183,7 +187,7 @@ class SnippetsController < ApplicationController
 
   def set_vote_display(snippet)
     id = snippet.id
-    vote = Vote.find_by_snippet_id id  # TODO: and by user
+    vote = Vote.find_by_snippet_id_and_user_id id, current_user.id
 
     @vote_display[id] = @unvote_display[id] = @novote_display[id] = " nodisplay"
 
