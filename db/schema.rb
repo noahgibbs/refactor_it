@@ -14,13 +14,13 @@ ActiveRecord::Schema.define(:version => 20100624022455) do
   create_table "refactors", :force => true do |t|
     t.text     "body"
     t.text     "comment"
-    t.integer  "snippet_id", :null => false
+    t.integer  "snippet_id",                :null => false
     t.string   "language"
     t.integer  "user_id"
     t.string   "user_note"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "karma"
+    t.integer  "karma",      :default => 0
   end
 
   add_index "refactors", ["created_at"], :name => "index_refactors_on_created_at"
@@ -33,10 +33,10 @@ ActiveRecord::Schema.define(:version => 20100624022455) do
     t.text     "body"
     t.text     "notes"
     t.string   "language"
-    t.integer  "user_id",    :null => false
+    t.integer  "user_id",                   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "karma"
+    t.integer  "karma",      :default => 0
   end
 
   add_index "snippets", ["created_at"], :name => "index_snippets_on_created_at"
