@@ -16,8 +16,7 @@ class SnippetsController < ApplicationController
   # GET /snippets
   # GET /snippets.xml
   def index
-    @snippets = Snippet.all :order => "created_at DESC",
-                            :limit => MaxSnippets
+    @snippets = Snippet.most_recent.limit(10)
     @snippets.each {|snippet| set_vote_display snippet}
 
     respond_to do |format|
@@ -27,55 +26,7 @@ class SnippetsController < ApplicationController
   end
 
   def hottest
-    # TODO: refactor this mess.
-    # Rather than counting votes per-request, we should be
-    # including a karma/total field in each snippet and refactor
-    # that gets updated when votes do.  Karma logic belongs in
-    # the model.
-
-    sql_results = Vote.connection.execute("SELECT snippet_id, vote_type, COUNT(*) FROM votes WHERE refactor_id IS NULL AND vote_approved = 1 AND user_id IS NOT NULL GROUP BY snippet_id, vote_type")
-
-    vote_counts = {}
-    sql_results.each do |row|
-      id = row['snippet_id'].to_i
-      vote_type = row['vote_type'].to_i
-      vote_counts[id] ||= {}
-      vote_counts[id][vote_type] = row['COUNT(*)'].to_i
-    end
-
-    vote_counts.each do |snippet_id, vote_table|
-      total = 0
-      vote_table.each do |vtype, count|
-        if vtype >= 2000  # spam or inappropriate
-          total -= count * 5
-        elsif vtype >= 1000  # interesting or appropriate
-          total += count
-        else
-          raise "Unvote found in votes!"
-        end
-      end
-      vote_counts[snippet_id]['value'] = total
-    end
-
-    snippet_ids = vote_counts.keys
-
-    # Get random snippets, in case we have fewer ranked snippets than
-    # requested, or fewer with rank above 0
-    unranked_snippets = Snippet.all :order => "created_at DESC",
-                                    :limit => MaxSnippets
-    unranked_snippets ||= []  # in case there are none
-    unranked_snippet_ids = unranked_snippets.map(&:id) - snippet_ids
-    unranked_snippet_ids.each { |id|
-      vote_counts[id] = {'value' => 0}
-    }
-
-    snippet_ids |= unranked_snippet_ids
-    snippet_ids = snippet_ids.sort { |a, b|
-      vote_counts[b]['value'] <=> vote_counts[a]['value']
-    }
-    snippet_ids = snippet_ids[0..MaxSnippets-1]
-
-    @snippets = snippet_ids.map {|id| Snippet.find id }
+    @snippets = Snippets.by_karma.limit(MaxSnippets)
     @snippets.each {|snippet| set_vote_display snippet}
 
     respond_to do |format|
