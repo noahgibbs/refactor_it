@@ -35,4 +35,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def assert_error_on(field, model)
+    assert !model.errors[field.to_sym].nil?, "No validation error on the #{field.to_s} field."
+  end
+
+  def assert_no_error_on(field, model)
+    assert model.errors[field.to_sym].nil?, "Validation error on #{field.to_s}."
+  end
 end

@@ -19,4 +19,15 @@ class Vote < ActiveRecord::Base
     VoteTypes[a] <=> VoteTypes[b]
   }
 
+  def validate
+    if snippet_id && refactor_id
+      errors.add("snippet_id", "can't exist when there's a refactor")
+      errors.add("refactor_id", "can't exist when there's a snippet")
+    end
+    super
+  end
+
+  def before_save
+  end
+
 end
