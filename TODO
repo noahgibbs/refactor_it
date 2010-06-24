@@ -2,12 +2,9 @@ Real controller actions for refactor voting
 
 AJAX responses to refactor voting
 
-Order refactors based on vote count
+Order refactors based on karma
 
 (HUGE) permissions, karma
-
-(HUGE) Anonymous votes
-
 
 === Later? ===
 
@@ -16,6 +13,8 @@ RSS feed per-language
 RSS feed with keywords
 
 Email notification (same conditions as RSS feeds)
+
+(HUGE) Anonymous votes
 
 === Small ===
 

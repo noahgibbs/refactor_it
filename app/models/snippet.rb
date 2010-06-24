@@ -5,6 +5,8 @@ class Snippet < ActiveRecord::Base
 
   validates_presence_of :user_id
 
+  named_scope :by_karma, :order => "karma"
+
   Languages = {
     "C" => "c",
     "C++" => "c++",

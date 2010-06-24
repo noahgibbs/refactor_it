@@ -5,7 +5,7 @@ one:
   comment: MyText
   snippet: one
   language: MyString
-  user_id: 1
+  user: bobo
   user_note: MyString
 
 two:
@@ -13,5 +13,13 @@ two:
   comment: MyText
   snippet: two
   language: MyString
-  user_id: 1
+  user: sammy
   user_note: MyString
+
+phprefactor:
+  body: print "Ruby sux!"
+  comment: It does!
+  snippet: phpsux
+  language: Ruby
+  user: sammy
+  user_note:

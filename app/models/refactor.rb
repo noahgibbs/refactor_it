@@ -5,6 +5,8 @@ class Refactor < ActiveRecord::Base
 
   validates_presence_of :snippet_id
 
+  named_scope :by_karma, :order => "karma"
+
   Languages = Snippet::Languages
 
   def before_save

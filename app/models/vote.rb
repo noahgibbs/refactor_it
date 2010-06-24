@@ -34,9 +34,7 @@ class Vote < ActiveRecord::Base
 
   def after_save
     if refactor_id
-      print "\nRecalculating refactor karma!\n"
       refactor.calculate_karma
-      print "New karma: #{refactor.karma}!\n"
       refactor.save
     else 
       snippet.calculate_karma
