@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  has_many :snippets
+  has_many :refactors
+  has_many :votes
+
   # Include default devise modules. Others available are:
   # :http_authenticatable, :token_authenticatable
   devise :registerable, :database_authenticatable, :recoverable,

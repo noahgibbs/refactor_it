@@ -1,6 +1,7 @@
 class Snippet < ActiveRecord::Base
   has_many :refactors
   has_many :votes
+  belongs_to :user
 
   Languages = {
     "C" => "c",

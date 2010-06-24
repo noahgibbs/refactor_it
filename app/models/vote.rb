@@ -1,6 +1,12 @@
 class Vote < ActiveRecord::Base
   belongs_to :snippet
   belongs_to :refactor
+  belongs_to :user
+
+  validates_presence_of :vote_approved
+  validates_presence_of :vote_type
+  validates_presence_of :user_id
+  validates_presence_of :snippet_id
 
   VoteTypes = {
     "Unvote" => 1,
@@ -20,14 +26,16 @@ class Vote < ActiveRecord::Base
   }
 
   def validate
-    if snippet_id && refactor_id
-      errors.add("snippet_id", "can't exist when there's a refactor")
-      errors.add("refactor_id", "can't exist when there's a snippet")
+    if !snippet_id
+      errors.add("snippet_id", "must have a snippet ID!")
     end
     super
   end
 
   def before_save
+    if snippet_id
+    else
+    end
   end
 
 end

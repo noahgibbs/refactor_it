@@ -1,5 +1,6 @@
 class Refactor < ActiveRecord::Base
   belongs_to :snippet
+  belongs_to :user
   has_many :votes
 
   Languages = Snippet::Languages
