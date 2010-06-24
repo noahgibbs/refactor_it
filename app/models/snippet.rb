@@ -3,6 +3,8 @@ class Snippet < ActiveRecord::Base
   has_many :votes
   belongs_to :user
 
+  validates_presence_of :user_id
+
   Languages = {
     "C" => "c",
     "C++" => "c++",

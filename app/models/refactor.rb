@@ -3,6 +3,8 @@ class Refactor < ActiveRecord::Base
   belongs_to :user
   has_many :votes
 
+  validates_presence_of :snippet_id
+
   Languages = Snippet::Languages
 
   def before_save
