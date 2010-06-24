@@ -25,4 +25,14 @@ class VoteTest < ActiveSupport::TestCase
     assert_error_on("snippet_id", vote)
   end
 
+  test "calculate karma after save" do
+    vote = Vote.new(:snippet_id => snippets(:phpsux).id,
+                    :user_id => users(:sammy),
+                    :vote_type => 2002, :vote_approved => 1)
+    assert vote.save
+    s = snippets(:phpsux)
+    s.reload
+    assert_equal -5, s.karma
+  end
+
 end

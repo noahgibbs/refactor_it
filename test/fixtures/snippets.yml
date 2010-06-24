@@ -11,3 +11,9 @@ two:
   body: MyText
   language: MyString
   user_id: 4
+
+phpsux:
+  title: How do I write this?
+  body: print "PHP sux!"
+  language: Ruby
+  user: bobo

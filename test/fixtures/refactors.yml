@@ -3,7 +3,7 @@
 one:
   body: MyText
   comment: MyText
-  snippet_id: 1
+  snippet: one
   language: MyString
   user_id: 1
   user_note: MyString
@@ -11,7 +11,7 @@ one:
 two:
   body: MyText
   comment: MyText
-  snippet_id: 1
+  snippet: two
   language: MyString
   user_id: 1
   user_note: MyString

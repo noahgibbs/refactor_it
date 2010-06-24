@@ -1,3 +1,7 @@
 bobo:
   email: bobo@bobo.com
-  username: bobo
+  username: $LABEL
+
+sammy:
+  email: sammy@bobo.com
+  username: $LABEL
