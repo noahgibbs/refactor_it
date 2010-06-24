@@ -6,7 +6,7 @@ class Snippet < ActiveRecord::Base
   validates_presence_of :user_id
 
   named_scope :most_recent, :order => "created_at DESC"
-  named_scope :by_karma, :order => "karma, created_at DESC"
+  named_scope :by_karma, :order => "karma DESC, created_at DESC"
   named_scope :limit, lambda { |num| { :limit => num } }
 
   Languages = {
