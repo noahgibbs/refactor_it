@@ -8,4 +8,4 @@
 <%= render :partial => "snippet", :object => @snippet %>
 
 <%= render :partial => "refactors/refactor",
-           :collection => @snippet.refactors %>
+           :collection => @snippet.refactors.by_karma %>
