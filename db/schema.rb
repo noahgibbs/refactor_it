@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100611072936) do
+ActiveRecord::Schema.define(:version => 20100624022455) do
 
   create_table "refactors", :force => true do |t|
     t.text     "body"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20100611072936) do
     t.string   "user_note"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "karma"
   end
 
   add_index "refactors", ["created_at"], :name => "index_refactors_on_created_at"
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20100611072936) do
     t.integer  "user_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "karma"
   end
 
   add_index "snippets", ["created_at"], :name => "index_snippets_on_created_at"
