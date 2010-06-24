@@ -33,8 +33,10 @@ class Vote < ActiveRecord::Base
   end
 
   def before_save
-    if snippet_id
+    if refactor_id
+      refactor.calculate_karma
     else
+      snippet.calculate_karma
     end
   end
 

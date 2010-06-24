@@ -26,4 +26,22 @@ class Snippet < ActiveRecord::Base
     self.body = self.body.strip
     self.language = Languages[self.language] || "Ruby"
   end
+
+  def calculate_karma
+    sql_results = Vote.connection.execute("SELECT vote_type, COUNT(*) FROM votes WHERE snippet_id = ? AND refactor_id IS NULL AND vote_approved = 1 AND user_id IS NOT NULL GROUP BY vote_type", id)
+
+    total = 0
+    sql_results.each do |row|
+      row_type = row['vote_type'].to_i
+      count = row['COUNT(*)'].to_i
+
+      if vtype >= 2000  # spam or inappropriate
+        total -= count * 5
+      elsif vtype >= 1000  # interesting or appropriate
+        total += count
+      else
+        raise "Illegal value found in votes!"
+      end
+    end
+  end
 end

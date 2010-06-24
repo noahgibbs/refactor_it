@@ -11,4 +11,8 @@ class Refactor < ActiveRecord::Base
     self.body = self.body.strip
     self.language = Languages[self.language] || "Ruby"
   end
+
+  def calculate_karma
+    
+  end
 end
