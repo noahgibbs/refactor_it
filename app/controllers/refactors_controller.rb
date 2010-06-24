@@ -1,5 +1,7 @@
 class RefactorsController < ApplicationController
   before_filter :capture_snippet
+  before_filter :authorize_user!,
+    :except => [:index, :show]
 
   # GET /refactors
   # GET /refactors.xml

@@ -106,7 +106,7 @@ class SnippetsController < ApplicationController
     if params[:type] == "Unvote"
       render :text => "success"
     else
-      vote = Vote.new :snippet_id => snippet_id, :vote_type => VoteTypes[params[:type]], :user_id => 7, :vote_approved => 1
+      vote = Vote.new :snippet_id => snippet_id, :vote_type => VoteTypes[params[:type]], :user_id => current_user.id, :vote_approved => 1
       if vote.save
         render :text => "success"
       else
@@ -134,7 +134,7 @@ class SnippetsController < ApplicationController
   # POST /snippets
   # POST /snippets.xml
   def create
-    @snippet = Snippet.new(params[:snippet].merge({:user_id => 7}))
+    @snippet = Snippet.new(params[:snippet].merge({:user_id => current_user.id}))
 
     respond_to do |format|
       if @snippet.save
