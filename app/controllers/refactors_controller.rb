@@ -3,8 +3,8 @@ class RefactorsController < ApplicationController
   before_filter :authorize_user!,
     :except => [:index, :show]
 
-  # GET /refactors
-  # GET /refactors.xml
+  # GET /snippets/3/refactors
+  # GET /snippets/3/refactors.xml
   def index
     @refactors = @snippet ? @snippet.refactors : Refactor.find(:all)
 
@@ -14,8 +14,8 @@ class RefactorsController < ApplicationController
     end
   end
 
-  # GET /refactors/1
-  # GET /refactors/1.xml
+  # GET /snippets/3/refactors/1
+  # GET /snippets/3/refactors/1.xml
   def show
     @refactor = Refactor.find(params[:id])
 
@@ -25,8 +25,28 @@ class RefactorsController < ApplicationController
     end
   end
 
-  # GET /refactors/new
-  # GET /refactors/new.xml
+  # POST /snippets/3/snippets/1/refactors/vote?id=274&type=Interesting
+  def vote
+    snippet_id = params[:snippet_id].to_i
+    refactor_id = params[:refactor_id].to_i
+
+    votes = Vote.find(:all, :conditions => { :snippet_id => snippet_id, :refactor_id => refactor_id, :user_id => current_user.id })
+    votes.each { |vote| vote.destroy }
+
+    if params[:type] == "Unvote"
+      render :text => "success"
+    else
+      vote = Vote.new :snippet_id => snippet_id, :refactor_id => refactor_id, :vote_type => VoteTypes[params[:type]], :user_id => current_user.id, :vote_approved => 1
+      if vote.save
+        render :text => "success"
+      else
+        render :text => "Couldn't vote!", :status => 500
+      end
+    end
+  end
+
+  # GET /snippets/3/refactors/new
+  # GET /snippets/3/refactors/new.xml
   def new
     @refactor = @snippet ? @snippet.refactors.build : Refactor.new
 
@@ -36,13 +56,13 @@ class RefactorsController < ApplicationController
     end
   end
 
-  # GET /refactors/1/edit
+  # GET /snippets/3/refactors/1/edit
   def edit
     @refactor = Refactor.find(params[:id])
   end
 
-  # POST /refactors
-  # POST /refactors.xml
+  # POST /snippets/3/refactors
+  # POST /snippets/3/refactors.xml
   def create
     @refactor = Refactor.new(params[:refactor])
 
@@ -57,8 +77,8 @@ class RefactorsController < ApplicationController
     end
   end
 
-  # PUT /refactors/1
-  # PUT /refactors/1.xml
+  # PUT /snippets/3/refactors/1
+  # PUT /snippets/3/refactors/1.xml
   def update
     @refactor = Refactor.find(params[:id])
 
@@ -73,8 +93,8 @@ class RefactorsController < ApplicationController
     end
   end
 
-  # DELETE /refactors/1
-  # DELETE /refactors/1.xml
+  # DELETE /snippets/3/refactors/1
+  # DELETE /snippets/3/refactors/1.xml
   def destroy
     @refactor = Refactor.find(params[:id])
     @refactor.destroy
