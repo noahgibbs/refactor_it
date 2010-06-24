@@ -45,4 +45,30 @@ $(function() {
     };
     rfi_ajax_vote(url, { id: snippet_id, type: "Unvote" }, on_vote);
   });
+
+  $('.refactor_vote_button').click(function() {
+    var refactor_id = parseInt(this.id.substr(12));
+    var vote_type = $('.refactor_vote_selector_' + refactor_id +
+                      ' option:selected').text();
+    var url = '/refactors/vote';
+
+    on_vote = function() {
+      $('#refactor_vote_area_' + refactor_id).hide();
+      $('#refactor_unvote_area_' + refactor_id).show();
+      $('#refactor_vote_type_' + refactor_id).text(vote_type);
+    };
+    rfi_ajax_vote(url, { id: refactor_id, type: vote_type }, on_vote);
+  });
+
+  $('.refactor_unvote_button').click(function() {
+    var refactor_id = parseInt(this.id.substr(14));
+    var url = '/refactors/vote';
+
+    on_vote = function() {
+      $('#refactor_unvote_area_' + refactor_id).hide();
+      $('#refactor_vote_area_' + refactor_id).show();
+      $('#refactor_vote_type_' + refactor_id).text("");
+    };
+    rfi_ajax_vote(url, { id: refactor_id, type: "Unvote" }, on_vote);
+  });
 });

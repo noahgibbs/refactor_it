@@ -1,19 +1,49 @@
 <div class="refactor_container">
 
 <div class="ajax_refactor_box">
-  <div class="vote_button">
-    <%= link_to_remote "Vote Up!",
-                       :url => { :controller => 'refactors',
-                                 :action => :vote},
-                       :method => :post,
-                       :with => "'type=up'" %>
-  </div>
-  <div class="refactor_vote_button">
-    <%= link_to_remote "Vote Down!",
-                       :url => { :controller => 'refactors',
-                                 :action => :vote},
-                       :method => :post,
-                       :with => "'type=down'" %>
+  <% unless current_user %>
+    <div>
+      You must be <%= link_to 'logged in', new_user_session_url %>
+      to vote. <br />
+      (Or
+      <%= link_to 'create an account', new_user_registration_url %>)
+    </div>
+  <% else %>
+    <div class="refactor_vote_area"
+         id="refactor_vote_area_<%= refactor.id %>">
+      This refactor is:
+      <%= select(:vote, :vote_type, RefactorsController::VoteTypeNames,
+                 {},
+                 { :class => "refactor_vote_selector_#{refactor.id}" })
+       %>
+
+      <div class="refactor_vote_button shadow"
+           id="vote_button_<%= refactor.id -%>">
+        Vote!
+      </div>
+    </div>
+
+    <div class="refactor_unvote_area"
+         id="refactor_unvote_area_<%= refactor.id %>">
+      You voted this refactor was
+      <span id="refactor_vote_type_<%= refactor.id %>">
+        <%= refactor.vote_type_for(current_user) %></span>.
+
+      <div class="refactor_unvote_button shadow"
+           id="unvote_button_<%= refactor.id -%>">
+        Changed My Mind!
+      </div>
+    </div>
+
+    <% javascript_tag do %>
+      <% un = refactor.has_vote_for?(current_user) ? "" : "un" %>
+      $("#refactor_<%= un -%>vote_area_<%= refactor.id %>").hide();
+    <% end %>
+  <% end %>
+
+  <div>
+    Our users think this refactor is
+    <span class="refactor_tag">placeholder</span>
   </div>
 </div>
 

@@ -3,6 +3,11 @@ class RefactorsController < ApplicationController
   before_filter :authenticate_user!,
     :except => [:index, :show]
 
+  Languages = Snippet::Languages
+  VoteTypes = Vote::VoteTypes
+  VoteTypesByNumber = Vote::VoteTypesByNumber
+  VoteTypeNames = Vote::VoteTypeNames
+
   # GET /snippets/3/refactors
   # GET /snippets/3/refactors.xml
   def index
@@ -27,15 +32,16 @@ class RefactorsController < ApplicationController
 
   # POST /snippets/3/snippets/1/refactors/vote?id=274&type=Interesting
   def vote
-    snippet_id = params[:snippet_id].to_i
-    refactor_id = params[:refactor_id].to_i
+    refactor_id = params[:id].to_i
 
-    votes = Vote.find(:all, :conditions => { :snippet_id => snippet_id, :refactor_id => refactor_id, :user_id => current_user.id })
+    votes = Vote.find(:all, :conditions => { :refactor_id => refactor_id, :user_id => current_user.id })
     votes.each { |vote| vote.destroy }
 
     if params[:type] == "Unvote"
       render :text => "success"
     else
+      ref = Refactor.find(refactor_id)
+      snippet_id = ref.snippet_id
       vote = Vote.new :snippet_id => snippet_id, :refactor_id => refactor_id, :vote_type => VoteTypes[params[:type]], :user_id => current_user.id, :vote_approved => 1
       if vote.save
         render :text => "success"
