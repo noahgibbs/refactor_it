@@ -1,6 +1,6 @@
 class SnippetsController < ApplicationController
   before_filter :vote_display
-  before_filter :authorize_user!,
+  before_filter :authenticate_user!,
     :except => [:index, :show, :hottest]
 
   # TODO: make vote_display an after_filter, based on
@@ -26,7 +26,7 @@ class SnippetsController < ApplicationController
   end
 
   def hottest
-    @snippets = Snippets.by_karma.limit(MaxSnippets)
+    @snippets = Snippet.by_karma.limit(MaxSnippets)
     @snippets.each {|snippet| set_vote_display snippet}
 
     respond_to do |format|
