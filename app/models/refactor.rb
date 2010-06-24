@@ -5,7 +5,9 @@ class Refactor < ActiveRecord::Base
 
   validates_presence_of :snippet_id
 
-  named_scope :by_karma, :order => "karma"
+  named_scope :most_recent, :order => "created_at DESC"
+  named_scope :by_karma, :order => "karma, created_at DESC"
+  named_scope :limit, lambda { |num| { :limit => num } }
 
   Languages = Snippet::Languages
 
