@@ -9,6 +9,9 @@ class Snippet < ActiveRecord::Base
   named_scope :by_karma, :order => "karma DESC, created_at DESC"
   named_scope :limit, lambda { |num| { :limit => num } }
 
+  VoteTypes = Vote::VoteTypes
+  VoteTypesByNumber = Vote::VoteTypesByNumber
+
   Languages = {
     "C" => "c",
     "C++" => "c++",
@@ -29,6 +32,20 @@ class Snippet < ActiveRecord::Base
   def before_save
     self.body = self.body.strip
     self.language = Languages[self.language] || "Ruby"
+  end
+
+  def vote_for(user)
+    Vote.find :first, :conditions => { :user_id => user.id,
+                                       :snippet_id => self.id }
+  end
+
+  def has_vote_for?(user)
+    !!vote_for(user)
+  end
+
+  def vote_type_for(user)
+    v = vote_for(user)
+    v ? VoteTypesByNumber[v.vote_type] : nil
   end
 
   def calculate_karma

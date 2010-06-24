@@ -1,10 +1,6 @@
 class SnippetsController < ApplicationController
-  before_filter :vote_display
   before_filter :authenticate_user!,
     :except => [:index, :show, :hottest]
-
-  # TODO: make vote_display an after_filter, based on
-  # @snippet and @snippets?
 
   Languages = Snippet::Languages
   VoteTypes = Vote::VoteTypes
@@ -17,7 +13,6 @@ class SnippetsController < ApplicationController
   # GET /snippets.xml
   def index
     @snippets = Snippet.most_recent.limit(10)
-    @snippets.each {|snippet| set_vote_display snippet}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,7 +22,6 @@ class SnippetsController < ApplicationController
 
   def hottest
     @snippets = Snippet.by_karma.limit(MaxSnippets)
-    @snippets.each {|snippet| set_vote_display snippet}
 
     respond_to do |format|
       format.html { render :action => :index }
@@ -39,7 +33,6 @@ class SnippetsController < ApplicationController
   # GET /snippets/1.xml
   def show
     @snippet = Snippet.find(params[:id])
-    set_vote_display @snippet
 
     respond_to do |format|
       format.html # show.html.erb
@@ -102,7 +95,6 @@ class SnippetsController < ApplicationController
   # PUT /snippets/1.xml
   def update
     @snippet = Snippet.find(params[:id])
-    set_vote_display @snippet
 
     respond_to do |format|
       if @snippet.update_attributes(params[:snippet])
@@ -124,34 +116,6 @@ class SnippetsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(snippets_url) }
       format.xml  { head :ok }
-    end
-  end
-
-  private
-
-  def vote_display
-    @vote_display = {}
-    @unvote_display = {}
-    @novote_display = {}
-    @vote_type = {}
-  end
-
-  def set_vote_display(snippet)
-    id = snippet.id
-    vote = Vote.find_by_snippet_id_and_user_id id, current_user.id
-
-    @vote_display[id] = @unvote_display[id] = @novote_display[id] = " nodisplay"
-
-    unless current_user
-      @novote_display[id] = ""
-      return
-    end
-
-    if vote
-      @unvote_display[id] = ""
-      @vote_type[id] = VoteTypesByNumber[vote.vote_type]
-    else
-      @vote_display[id] = ""
     end
   end
 end

@@ -1,37 +1,45 @@
 <div class="snippet_container">
 
 <div class="ajax_snippet_box">
-  <div class="snippet_vote_area<%= @vote_display[snippet.id] %>"
-       id="snippet_vote_area_<%= snippet.id %>">
-    This snippet is:
-    <%= select(:vote, :vote_type, SnippetsController::VoteTypeNames,
-               {}, { :class => "snippet_vote_selector_#{snippet.id}" })
-     %>
-
-    <div class="snippet_vote_button shadow"
-         id="vote_button_<%= snippet.id -%>">
-      Vote!
+  <% unless current_user %>
+    <div>
+      You must be <%= link_to 'logged in', new_user_session_url %>
+      to vote. <br />
+      (Or
+      <%= link_to 'create an account', new_user_registration_url %>)
     </div>
-  </div>
+  <% else %>
+    <div class="snippet_vote_area"
+         id="snippet_vote_area_<%= snippet.id %>">
+      This snippet is:
+      <%= select(:vote, :vote_type, SnippetsController::VoteTypeNames,
+                 {},
+                 { :class => "snippet_vote_selector_#{snippet.id}" })
+       %>
 
-  <div class="snippet_unvote_area<%= @unvote_display[snippet.id] %>"
-       id="snippet_unvote_area_<%= snippet.id %>">
-    You voted this snippet was
-    <span id="snippet_vote_type_<%= snippet.id %>">
-      <%= @vote_type[snippet.id] %></span>.
-
-    <div class="snippet_unvote_button shadow"
-         id="unvote_button_<%= snippet.id -%>">
-      Changed My Mind!
+      <div class="snippet_vote_button shadow"
+           id="vote_button_<%= snippet.id -%>">
+        Vote!
+      </div>
     </div>
-  </div>
 
-  <div class="snippet_novote_area<%= @novote_display[snippet.id] %>"
-       id="snippet_novote_area_<%= snippet.id %>">
-    You must be <%= link_to 'logged in', new_user_session_url %>
-    to vote. <br />
-    (Or <%= link_to 'create an account', new_user_registration_url %>)
-  </div>
+    <div class="snippet_unvote_area"
+         id="snippet_unvote_area_<%= snippet.id %>">
+      You voted this snippet was
+      <span id="snippet_vote_type_<%= snippet.id %>">
+        <%= snippet.vote_type_for(current_user) %></span>.
+
+      <div class="snippet_unvote_button shadow"
+           id="unvote_button_<%= snippet.id -%>">
+        Changed My Mind!
+      </div>
+    </div>
+
+    <% javascript_tag do %>
+      <% un = snippet.has_vote_for?(current_user) ? "" : "un" %>
+      $("#snippet_<%= un -%>vote_area_<%= snippet.id %>").hide();
+    <% end %>
+  <% end %>
 
   <div>
     Our users think this snippet is
